@@ -4,12 +4,12 @@
     "slug": "tst",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/AutonomousLogo.jpeg",
     "scheme": "tst",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/images/splash-icon.png",
+      "image": "./assets/images/AutonomousLogo.jpeg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -18,7 +18,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/AutonomousLogo.jpeg",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
