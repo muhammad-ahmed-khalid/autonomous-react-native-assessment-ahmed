@@ -11,7 +11,11 @@
     "splash": {
       "image": "./assets/images/AutonomousLogo.jpeg",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "dark": {
+        "image": "./assets/images/AutonomousLogo.jpeg",
+        "backgroundColor": "#000000"
+      }
     },
     "ios": {
       "supportsTablet": true
@@ -30,7 +34,13 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID for secure and convenient login."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

@@ -1,0 +1,39 @@
+<svg width="1284" height="2778" viewBox="0 0 1284 2778" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Light Mode Splash Screen Template -->
+  
+  <!-- Background -->
+  <rect width="1284" height="2778" fill="#FFFFFF"/>
+  
+  <!-- Logo Placeholder (Replace with your actual logo) -->
+  <g transform="translate(642, 1200)">
+    <!-- Simple geometric logo example - replace with your actual logo -->
+    <circle cx="0" cy="0" r="120" fill="none" stroke="#1F2937" stroke-width="8"/>
+    <circle cx="0" cy="0" r="80" fill="#1F2937"/>
+    <path d="M -40 -20 L 0 20 L 40 -20" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  
+  <!-- App Name -->
+  <text 
+    x="642" 
+    y="1480" 
+    text-anchor="middle" 
+    font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" 
+    font-size="52" 
+    font-weight="600" 
+    letter-spacing="-0.5" 
+    fill="#1F2937">
+    Autonomous
+  </text>
+  
+  <!-- Optional: Subtle tagline or version (remove if not needed) -->
+  <!-- <text 
+    x="642" 
+    y="1560" 
+    text-anchor="middle" 
+    font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" 
+    font-size="24" 
+    font-weight="400" 
+    fill="#6B7280">
+    Your Tagline Here
+  </text> -->
+</svg>

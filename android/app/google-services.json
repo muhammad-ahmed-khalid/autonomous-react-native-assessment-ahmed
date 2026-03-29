@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "107007338021",
+    "project_id": "autonomous-122d7",
+    "storage_bucket": "autonomous-122d7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107007338021:android:37158796642cee2e3241cc",
+        "android_client_info": {
+          "package_name": "com.ahmed_2558.tst"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGx9kyx3zJAwIVN7AYkxE-hFT_9vJIEFk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

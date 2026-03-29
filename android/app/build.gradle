@@ -150,6 +150,13 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+    
+    // Firebase BOM for consistent Firebase versions
+    implementation platform('com.google.firebase:firebase-bom:33.7.0')
+    
+    // Firebase dependencies (versions managed by BOM)
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-analytics'
 
     def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true";
     def isWebpEnabled = (findProperty('expo.webp.enabled') ?: "") == "true";
@@ -175,3 +182,6 @@ dependencies {
         implementation jscFlavor
     }
 }
+
+// Apply Google Services plugin (must be at the bottom)
+apply plugin: 'com.google.gms.google-services'
