@@ -2,6 +2,7 @@ import { StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Text, View } from '@/components/Themed';
 import { Link } from 'expo-router';
 import { ControlledInput } from '@/components/ControlledInput';
+import { AuthWrapper } from '@/components/AuthWrapper';
 import { useForgotPasswordContainer } from '@/layouts/forgot-password/useForgotPasswordContainer';
 
 /**
@@ -20,7 +21,8 @@ export default function ForgotPasswordScreen() {
   } = useForgotPasswordContainer();
 
   return (
-    <View style={styles.container}>
+    <AuthWrapper>
+      <View style={styles.container}>
       <Text style={styles.title}>Reset Password</Text>
       
       {!isCodeSent ? (
@@ -149,7 +151,8 @@ export default function ForgotPasswordScreen() {
           <Text style={styles.linkText}>← Back to Sign In</Text>
         </TouchableOpacity>
       </Link>
-    </View>
+      </View>
+    </AuthWrapper>
   );
 }
 
@@ -159,6 +162,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
+    minHeight: '100%',
   },
   title: {
     fontSize: 32,

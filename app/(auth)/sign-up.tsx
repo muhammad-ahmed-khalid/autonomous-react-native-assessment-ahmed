@@ -1,7 +1,8 @@
-import { StyleSheet, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native';
+import { StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Text, View } from '@/components/Themed';
 import { Link } from 'expo-router';
 import { ControlledInput } from '@/components/ControlledInput';
+import { AuthWrapper } from '@/components/AuthWrapper';
 import { useSignupContainer } from '@/layouts/sign-up/useSignupContainer';
 
 /**
@@ -18,7 +19,7 @@ export default function SignUpScreen() {
   } = useSignupContainer();
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
+    <AuthWrapper>
       <View style={styles.container}>
         <Text style={styles.title}>Sign Up</Text>
         
@@ -130,18 +131,17 @@ export default function SignUpScreen() {
           </Link>
         </View>
       </View>
-    </ScrollView>
+    </AuthWrapper>
   );
 }
 
 const styles = StyleSheet.create({
-  scrollContainer: {
-    flexGrow: 1,
+  container: {
+    flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-  },
-  container: {
-    alignItems: 'center',
+    minHeight: '100%',
   },
   title: {
     fontSize: 32,

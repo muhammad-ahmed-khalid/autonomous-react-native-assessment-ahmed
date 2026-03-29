@@ -3,7 +3,8 @@ import { Text, View } from '@/components/Themed';
 import { Link } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { ControlledInput } from '@/components/ControlledInput';
-import {useSignInContainer} from '@/layouts/sign-in/useSignInContainer';
+import { AuthWrapper } from '@/components/AuthWrapper';
+import { useSignInContainer } from '@/layouts/sign-in/useSignInContainer';
 
 /**
  * Sign In Screen
@@ -24,7 +25,8 @@ export default function SignInScreen() {
   const isBiometricLoading = biometric.isLoading;
 
   return (
-    <View style={styles.container}>
+    <AuthWrapper>
+      <View style={styles.container}>
       {/* Header */}
       <Text style={styles.title}>Sign In</Text>
       
@@ -140,7 +142,8 @@ export default function SignInScreen() {
           </TouchableOpacity>
         </Link>
       </View>
-    </View>
+      </View>
+    </AuthWrapper>
   );
 }
 
@@ -151,6 +154,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
+    minHeight: '100%',
   },
   
   // Header
