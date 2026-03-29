@@ -4,14 +4,13 @@
  */
 
 import React, { useEffect } from 'react';
-import { StyleSheet, ScrollView, TouchableOpacity, View as RNView, Alert } from 'react-native';
+import { StyleSheet, ScrollView, TouchableOpacity, View as RNView } from 'react-native';
 import { Text, View } from '@/components/Themed';
-import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { useSubscription } from '@/hooks/useSubscription';
 import { StatusBadge } from '@/components/subscription/StatusBadge';
 import { SubscriptionButton } from '@/components/subscription/SubscriptionButton';
 import { SubscriptionCard } from '@/components/subscription/SubscriptionCard';
+import { useSubscriptionTabContainer } from '@/layouts/subscription-tab/useSubscriptionTabContainer';
 
 export default function SubscriptionTabScreen() {
   const {
@@ -20,26 +19,16 @@ export default function SubscriptionTabScreen() {
     initialize,
     formattedNextBillingDate,
     trialDaysRemaining,
-  } = useSubscription();
+    hasActiveSubscription,
+    isTrialActive,
+    handleViewDetails,
+    handleViewPlans,
+    handleUpgrade,
+  } = useSubscriptionTabContainer();
 
   useEffect(() => {
     initialize();
   }, [initialize]);
-
-  const hasActiveSubscription = currentSubscription && currentSubscription.status !== 'none';
-  const isTrialActive = currentSubscription?.status === 'trial';
-
-  const handleViewDetails = () => {
-    router.push('/subscription/detail');
-  };
-
-  const handleViewPlans = () => {
-    router.push('/subscription/plans');
-  };
-
-  const handleUpgrade = () => {
-    router.push('/subscription/plans?type=upgrade');
-  };
 
   return (
     <View style={styles.container}>

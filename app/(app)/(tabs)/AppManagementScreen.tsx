@@ -1,116 +1,22 @@
-import { 
-  StyleSheet, 
-  TouchableOpacity, 
-  FlatList, 
-  RefreshControl, 
-  ActivityIndicator, 
-  Alert 
-} from 'react-native';
+import { StyleSheet, TouchableOpacity, FlatList, RefreshControl, ActivityIndicator } from 'react-native';
 import { Text, View } from '@/components/Themed';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { fetchApps, refreshApps, loadMoreApps, deleteApp } from '@/store/slices/appsSlice';
-import { router } from 'expo-router';
-import { useEffect } from 'react';
 import AppCard from '@/components/AppCard';
-import { App } from '@/types/app';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { showAppManagementNotification } from '@/services/pushNotificationService';
+import { useAppManagementContainer } from '@/layouts/app-management/useAppManagementContainer';
 
 export default function AppManagementScreen() {
-  const dispatch = useAppDispatch();
-  const { apps, loading, refreshing, error, hasMore, loadingMore, currentPage } = useAppSelector((state) => state.apps);
-
-  useEffect(() => {
-    dispatch(fetchApps());
-  }, [dispatch]);
-
-  const handleRefresh = () => {
-    dispatch(refreshApps());
-  };
-
-  const handleLoadMore = () => {
-    if (!loadingMore && hasMore && !loading) {
-      dispatch(loadMoreApps(currentPage + 1));
-    }
-  };
-
-  const handleCreateApp = () => {
-    router.push('../app-form');
-  };
-
-  const handleEditApp = (app: App) => {
-    router.push(`../app-form?id=${app.id}`);
-  };
-
-  const handleDeleteApp = (app: App) => {
-    Alert.alert(
-      'Delete App',
-      `Are you sure you want to delete "${app.name}"? This action cannot be undone.`,
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: async () => {
-            const appNameToDelete = app.name; // Store name before deletion
-            try {
-              await dispatch(deleteApp(app.id)).unwrap();
-              
-              // Show local push notification first
-              try {
-                await showAppManagementNotification('deleted', appNameToDelete);
-                console.log('✅ Delete notification triggered for:', appNameToDelete);
-              } catch (notifError) {
-                console.error('❌ Failed to show delete notification:', notifError);
-              }
-              
-              // Then show success alert with a small delay
-              setTimeout(() => {
-                Alert.alert('Success', 'App deleted successfully');
-              }, 100);
-            } catch (error: any) {
-              Alert.alert('Error', error || 'Failed to delete app');
-            }
-          },
-        },
-      ]
-    );
-  };
-
-  const handleAppPress = (app: App) => {
-    Alert.alert(
-      app.name,
-      `Status: ${app.subscriptionStatus}\n${app.description || 'No description'}`,
-      [
-        { text: 'Edit', onPress: () => handleEditApp(app) },
-        { text: 'Delete', style: 'destructive', onPress: () => handleDeleteApp(app) },
-        { text: 'Cancel', style: 'cancel' },
-      ]
-    );
-  };
-
-  const renderHeader = () => (
-    <View style={styles.header}>
-      <Text style={styles.title}>App Management</Text>
-      <Text style={styles.subtitle}>
-        {apps.length} {apps.length === 1 ? 'app' : 'apps'}
-      </Text>
-      
-      <TouchableOpacity style={styles.createButton} onPress={handleCreateApp}>
-        <FontAwesome name="plus" size={20} color="#fff" />
-        <Text style={styles.createButtonText}>Create New App</Text>
-      </TouchableOpacity>
-    </View>
-  );
-
-  const renderFooter = () => {
-    if (!loadingMore) return null;
-    return (
-      <View style={styles.loadingFooter}>
-        <ActivityIndicator size="small" />
-      </View>
-    );
-  };
+  const {
+    apps,
+    loading,
+    refreshing,
+    error,
+    handleRefresh,
+    handleLoadMore,
+    handleCreateApp,
+    handleAppPress,
+    handleEditApp,
+    handleDeleteApp,
+  } = useAppManagementContainer();
 
   if (loading && apps.length === 0) {
     return (
@@ -126,7 +32,7 @@ export default function AppManagementScreen() {
       <View style={styles.centerContainer}>
         <FontAwesome name="exclamation-circle" size={48} color="#F44336" />
         <Text style={styles.errorText}>{error}</Text>
-        <TouchableOpacity style={styles.retryButton} onPress={() => dispatch(fetchApps())}>
+        <TouchableOpacity style={styles.retryButton} onPress={handleRefresh}>
           <Text style={styles.retryButtonText}>Retry</Text>
         </TouchableOpacity>
       </View>
@@ -135,6 +41,20 @@ export default function AppManagementScreen() {
 
   return (
     <View style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={styles.title}>App Management</Text>
+        <Text style={styles.subtitle}>
+          {apps.length} {apps.length === 1 ? 'app' : 'apps'}
+        </Text>
+        
+        <TouchableOpacity style={styles.createButton} onPress={handleCreateApp}>
+          <FontAwesome name="plus" size={20} color="#fff" />
+          <Text style={styles.createButtonText}>Create New App</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* App List */}
       <FlatList
         data={apps}
         keyExtractor={(item) => item.id}
@@ -146,8 +66,6 @@ export default function AppManagementScreen() {
             onDelete={handleDeleteApp}
           />
         )}
-        ListHeaderComponent={renderHeader}
-        ListFooterComponent={renderFooter}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <FontAwesome name="mobile" size={64} color="#ccc" />

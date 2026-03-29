@@ -48,7 +48,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="AppManagementScreen"
         options={{
           title: 'App Management',
           tabBarIcon: ({ color }) => <TabBarIcon name="mobile" color={color} />,

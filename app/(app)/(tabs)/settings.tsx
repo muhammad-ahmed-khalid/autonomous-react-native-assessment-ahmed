@@ -1,37 +1,11 @@
-import { StyleSheet, ScrollView, TouchableOpacity, Alert, View as RNView, Image } from 'react-native';
+import { StyleSheet, ScrollView, TouchableOpacity, View as RNView, Image } from 'react-native';
 import { Text, View } from '@/components/Themed';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { logoutUser } from '@/store/slices/authSlice';
-import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import BiometricSettingsCard from '@/components/BiometricSettingsCard';
+import { useSettingsContainer } from '@/layouts/settings/useSettingsContainer';
 
 export default function SettingsScreen() {
-  const dispatch = useAppDispatch();
-  const { user, isLoading } = useAppSelector((state) => state.auth);
-
-  const handleLogout = () => {
-    Alert.alert(
-      'Logout',
-      'Are you sure you want to logout?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Logout',
-          style: 'destructive',
-          onPress: async () => {
-            // Dispatch logout action
-            await dispatch(logoutUser());
-            // Navigate to auth screen
-            router.replace('/(auth)/sign-in');
-          },
-        },
-      ]
-    );
-  };
+  const { user, isLoading, handleLogout } = useSettingsContainer();
 
   if (!user) {
     return (
