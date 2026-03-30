@@ -269,7 +269,7 @@ export default function SubscriptionPlansScreen() {
                 style={[styles.modalButton, styles.modalButtonPrimary]}
                 onPress={handleConfirmPlanChange}
               >
-                <Text style={styles.modalButtonTextPrimary}>Continue to Payment</Text>
+                <Text style={styles.modalButtonTextPrimary}>Payment</Text>
               </TouchableOpacity>
             </View>
           </View>
